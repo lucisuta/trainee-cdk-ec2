@@ -10,9 +10,11 @@ export class TraineeInfrastructure extends Construct {
 	constructor(scope: Construct, id: string, props: TraineeInfrastructureProps) {
 		super(scope, id);
 
-		// create a new VPC for 
+		// create a new VPC for all resources in this construct
+		// stop it from creating NAT gateways in public subnets which are not necessary in our scenario
 		const vpc = new ec2.Vpc(this, 'trainee-vpc-ec2', {
-			vpcName: 'trainee-vpc-ec2'
+			vpcName: 'trainee-vpc-ec2',
+			natGateways: 0,
 		});
 
 		// security group for instances
