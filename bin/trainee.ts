@@ -1,21 +1,31 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { TraineeStack } from '../lib/trainee-stack';
+import { TraineeStack as TraineeStackEc2 } from '../lib/ec2/trainee-stack';
+import { TraineeStack as TraineeStackAsg } from '../lib/asg/trainee-stack';
 
 const app = new cdk.App();
-new TraineeStack(app, 'TraineeStack', {
-  /* If you don't specify 'env', this stack will be environment-agnostic.
-   * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. */
 
-  /* Uncomment the next line to specialize this stack for the AWS Account
-   * and Region that are implied by the current CLI configuration. */
-  // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
+// the stack is deployed to the default CLI configuration account id and region
+// default account id taken from ~/.aws/credentials
+// default region taken from ~/.aws/config
+// https://docs.aws.amazon.com/cdk/latest/guide/environments.html
 
-  /* Uncomment the next line if you know exactly what Account and Region you
-   * want to deploy the stack to. */
-  // env: { account: '123456789012', region: 'us-east-1' },
+const props = {
+	env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
+	gitHub: {
+		oauthTokenSecretName: "GitHubToken",
+		repository: {
+			name: "trainee-frontend",
+			owner: "lucisuta",
+			branch: "main",
+		}
+	},
+	keyPairName: 'TraineeKeyPair',
+};
 
-  /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-});
+// simple EC2 deployment stack
+new TraineeStackEc2(app, 'ec2', props);
+
+// autoscaling group deployment stack
+new TraineeStackAsg(app, 'asg', props);

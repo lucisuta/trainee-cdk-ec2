@@ -2,6 +2,11 @@
 !jest.config.js
 *.d.ts
 node_modules
+.DS_Store
+.vscode
+
+# normally kept in GIT, but for this demo we will not
+cdk.context.json
 
 # CDK asset staging directory
 .cdk.staging
