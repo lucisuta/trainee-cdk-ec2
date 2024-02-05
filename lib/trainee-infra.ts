@@ -60,7 +60,7 @@ export class TraineeInfrastructure extends Construct {
 				'eu-north-1': 'ami-0fe8bec493a81c7da'
 			}),
 			userData: userData,
-			keyName: props.keyPairName,
+			keyPair: ec2.KeyPair.fromKeyPairName(this, 'trainee-key-pair', props.keyPairName),
 			securityGroup: sg,
 			instanceMetadataTags: true,
 			requireImdsv2: true,
