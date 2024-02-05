@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { TraineeStack as TraineeStackEc2 } from '../lib/ec2/trainee-stack';
-import { TraineeStack as TraineeStackAsg } from '../lib/asg/trainee-stack';
+import { TraineeStack } from '../lib/trainee-stack';
 
 const app = new cdk.App();
 
@@ -12,20 +11,19 @@ const app = new cdk.App();
 // https://docs.aws.amazon.com/cdk/latest/guide/environments.html
 
 const props = {
-	env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
+	env: {
+		account: process.env.CDK_DEFAULT_ACCOUNT,
+		region: process.env.CDK_DEFAULT_REGION
+	},
 	gitHub: {
-		oauthTokenSecretName: "GitHubToken",
+		oauthTokenSecretName: 'GitHubToken',
 		repository: {
-			name: "trainee-frontend",
-			owner: "lucisuta",
-			branch: "main",
+			name: 'trainee-frontend',
+			owner: 'lucisuta',
+			branch: 'main',
 		}
 	},
 	keyPairName: 'TraineeKeyPair',
 };
 
-// simple EC2 deployment stack
-new TraineeStackEc2(app, 'ec2', props);
-
-// autoscaling group deployment stack
-new TraineeStackAsg(app, 'asg', props);
+new TraineeStack(app, 'trainee', props);

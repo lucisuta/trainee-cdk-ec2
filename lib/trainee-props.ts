@@ -1,6 +1,9 @@
+/**
+ * GitHub-related parameters to stacks and constructs
+ */
 export interface TraineeGitHubProps {
 
-	/** The name of the secret in AWS Secrets Manager where the GitHub OAuth token is kept */
+	/** Name of the secret in AWS Secrets Manager where the GitHub OAuth token is kept */
 	oauthTokenSecretName: string
 
 	/** Information about the GitHub repository containing the code to be deployed */

@@ -1,20 +1,13 @@
 # Trainee CDK
 
-CDK backend to automatically build and deploy
-the [trainee-frontend](http://github.com/lucisuta/trainee-frontend) demo application
-to different AWS compute configurations.
+[Cloud Development Kit](https://aws.amazon.com/cdk/) (CDK) backend
+to build and deploy the [trainee-frontend](http://github.com/lucisuta/trainee-frontend)
+demo application to tagged EC2 instances in an automated manner.
 
 Demonstrates how to use
 [CodePipeline](https://aws.amazon.com/codepipeline/),
 [CodeBuild](https://aws.amazon.com/codebuild/),
 and [CodeDeploy](https://aws.amazon.com/codedeploy/).
-
-### Stacks
-
-There are two stacks for two different infrastructure configurations for compute
-
-* `lib/ec2` Tagged EC2 instances
-* `lib/asg` Autoscaling group
 
 ### Stages
 
